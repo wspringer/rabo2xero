@@ -1,6 +1,11 @@
 # rabo2xero
 
-Turns a Rabobank CSV export into something that can be read by Xero. 
+Turns a Rabobank CSV export into something that can be read by Xero. This is all work in progress. Currently the only way to test if this is useful is by running the transformation from the commandline:
+
+```bash
+cat transactions.txt | coffee src/index.coffee > xero.txt
+```
+
 
 ## The mapping
 
