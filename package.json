@@ -1,0 +1,25 @@
+{
+  "name": "rabo2xero",
+  "version": "0.1.0",
+  "description": "Converts a Rabobank CSV output file into something to be consumed by Xero",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "xero",
+    "rabobank"
+  ],
+  "author": "Wilfred Springer",
+  "license": "GPL",
+  "devDependencies": {
+    "coffee-script": "^1.9.1"
+  },
+  "dependencies": {
+    "csv": "^0.4.1",
+    "lodash": "^3.5.0"
+  },
+  "scripts": {
+    "prepublish": "coffee -o lib -c src"
+  }
+}
