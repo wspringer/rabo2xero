@@ -2,14 +2,9 @@
 
 Turns a Rabobank CSV export into something that can be read by Xero. 
 
-Based on:
+## The mapping
 
-* http://xerousers.com/forum/topics/transaction-types-coding-for
-* http://nl.wikipedia.org/wiki/Rekeningafschrift
-* https://help.xero.com/au/BankAccounts_Details_BankRules
-* https://www.rabobank.nl/images/formaatbeschrijving_csv_kommagescheiden_nieuw_29539176.pdf
-
-### What to do with Transaction Type?
+### Transaction Type?
 
 While importing CSV files, Xero allows you to indicate the source column for a *Transaction Type*. It's not entirely clear what this attribute means, and how's it's used in Xero. This is what I gather from a [discussion on one of the forums](http://xerousers.com/forum/topics/transaction-types-coding-for):
 
@@ -27,11 +22,11 @@ While importing CSV files, Xero allows you to indicate the source column for a *
 
 It seems the `BOEKCODE` would be reasonable field, even though it doesn't map directly to the terms mentioned in the customer forums. Perhaps it should even be [the label belonging to the code](http://nl.wikipedia.org/wiki/Rekeningafschrift) instead of the code itself.
 
-### What to do with the Description
+### Description
 
 In the CSV file provided by the Rabobank, for some reason (probably legacy) the description has been split up in several fields. In all of the cases I have seen so far, the spaces have been dropped, so simply joining all `OMSCHRx` fields won't cut it. I've decided to just join the fields separated by spaces, and map it to the `Description` field.
 
-### What to do with the Analysis Code
+### Analysis Code
 
 According to [this page](https://help.xero.com/au/BankAccounts_Details_BankRules), the Analysis Code is
 
@@ -39,22 +34,30 @@ According to [this page](https://help.xero.com/au/BankAccounts_Details_BankRules
 
 I'm ignoring it for now.
 
-### What to do with Reference
+### Reference
 
 Going with `END_TO_END_ID` for now, even though that fields is not always set by the Rabobank. It seems it's used in Xero for matching, not entirely clear how. (Does it need to be perfect match?)
 
-### What to do with Payee?
+### Payee
 
 `NAAR_NAAM` seems to be the sensible field here. `ID_TEGENREKENINGHOUDER` might be another option, but it's not always set. (Unfortunately, it's not always set to something sensible.)
 
-### What to do with Account Code?
+### Account Code?
 
 `TEGENREKENING`, even though it's not always set. (Jus as an example: in case of a `ba` `BOEKCODE`, it's not set, nor in case of some `db` `BOEKCODE` type of payments.)
 
-### What to do with Transaction Amount?
+### Transaction Amount?
 
 In case of `BY_AF_CODE` 'C', we should take the `BEDRAG`. In case it's 'D', we need to take that same amount, but make it a negative number.
 
-### What to do with Transaction Date
+### Transaction Date
 
 Going with `BOEKDATUM`.
+
+## Resources
+
+* http://xerousers.com/forum/topics/transaction-types-coding-for
+* http://nl.wikipedia.org/wiki/Rekeningafschrift
+* https://help.xero.com/au/BankAccounts_Details_BankRules
+* https://www.rabobank.nl/images/formaatbeschrijving_csv_kommagescheiden_nieuw_29539176.pdf
+
