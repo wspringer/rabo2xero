@@ -4,7 +4,7 @@
   "description": "Converts a Rabobank CSV output file into something to be consumed by Xero",
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "coffee -o lib -c src"
   },
   "keywords": [
     "xero",
@@ -18,8 +18,5 @@
   "dependencies": {
     "csv": "^0.4.1",
     "lodash": "^3.5.0"
-  },
-  "scripts": {
-    "prepublish": "coffee -o lib -c src"
   }
 }
